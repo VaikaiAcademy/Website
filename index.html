@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaikai academy | Nursery & primary school</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Andika&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Mustard and grey color scheme */
+            --primary-color: #555555; 
+            --secondary-color: #D4AF37; 
+            --text-color: #333333;
+            --light-grey: #F4F4F4;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Andika', sans-serif;
+            background-color: var(--light-grey);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden; 
+        }
+
+        /* Header & navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed; 
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 4px solid var(--secondary-color);
+            transition: all 0.3s ease; 
+        }
+
+        header.home-transparent {
+            background-color: transparent;
+            box-shadow: none;
+            border-bottom: none;
+        }
+
+        header.home-transparent .logo-text h1,
+        header.home-transparent nav a {
+            color: var(--white);
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        }
+
+        header.home-transparent .logo-text p {
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        }
+
+        header.home-transparent nav a:hover,
+        header.home-transparent nav a.active {
+            color: var(--secondary-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px; 
+        }
+
+        .logo-img {
+            width: 65px; 
+            height: 65px;
+            object-fit: contain;
+        }
+
+        .logo-text h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 2px;
+            line-height: 1.1;
+            transition: color 0.3s ease;
+        }
+
+        .logo-text p {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            padding-bottom: 5px;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        nav a.active {
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        /* Tab content control */
+        .tab-content {
+            display: none; 
+            animation: fadeIn 0.4s ease-in-out;
+            flex: 1; 
+            flex-direction: column; 
+            padding-top: 100px; 
+        }
+
+        #home.tab-content, 
+        #curriculum.tab-content, 
+        #leadership.tab-content, 
+        #contact.tab-content {
+            padding-top: 0; 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- HERO SECTIONS --- */
+        .hero {
+            background: linear-gradient(rgba(40, 40, 40, 0.6), rgba(40, 40, 40, 0.6)), url('school-bg.jpg') center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            padding-top: 100px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh; 
+            position: relative; 
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2); 
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Shared Sub-Hero Styling */
+        .sub-hero {
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            padding-top: 100px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 60vh; 
+            margin-bottom: 3rem;
+        }
+
+        .sub-hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2); 
+        }
+
+        .sub-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Specific Backgrounds */
+        .curriculum-bg {
+            background: linear-gradient(rgba(40, 40, 40, 0.7), rgba(40, 40, 40, 0.7)), url('curriculum.jpg') center/cover;
+        }
+        
+        .leadership-bg {
+            background: linear-gradient(rgba(40, 40, 40, 0.7), rgba(40, 40, 40, 0.7)), url('leadership.jpg') center/cover;
+        }
+
+        .contact-bg {
+            background: linear-gradient(rgba(40, 40, 40, 0.7), rgba(40, 40, 40, 0.7)), url('contact.jpg') center/cover;
+        }
+
+        /* --- CONTINUOUS SCROLLING MARQUEE --- */
+        .marquee {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.4); 
+            color: var(--white);
+            padding: 12px 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: scrollContinuous 20s linear infinite;
+        }
+
+        .marquee-text {
+            padding: 0 2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        @keyframes scrollContinuous {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s ease, background 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #E6C25B;
+            transform: translateY(-2px);
+        }
+
+        /* Main content sections */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem 2rem;
+            width: 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--secondary-color);
+            height: 100%;
+        }
+        
+        .card::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .founder-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            float: left;
+            margin: 0 2rem 1rem 0;
+            border: 4px solid var(--secondary-color);
+        }
+
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem auto;
+            display: block;
+            border: 4px solid var(--secondary-color);
+        }
+
+        .mission-vision {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 3rem;
+            border-radius: 8px;
+            margin-bottom: 4rem; 
+            text-align: center;
+            border-bottom: 5px solid var(--secondary-color);
+        }
+        
+        .mission-vision h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        /* Gallery slider styles */
+        .gallery-category {
+            margin-bottom: 4rem;
+        }
+
+        .gallery-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 15px;
+        }
+
+        .slider-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding-bottom: 15px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--secondary-color) #E8E8E8;
+        }
+
+        .slider-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .slider-container::-webkit-scrollbar-track {
+            background: #E8E8E8;
+            border-radius: 4px;
+        }
+        .slider-container::-webkit-scrollbar-thumb {
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        .slide {
+            flex: 0 0 300px;
+            height: 220px;
+            scroll-snap-align: start;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+            transition: border 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .slide:hover {
+            border-color: var(--secondary-color);
+            transform: scale(1.02);
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Lightbox CSS */
+        .lightbox {
+            display: none; 
+            position: fixed;
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(20, 20, 20, 0.98); 
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: fadeIn 0.3s;
+        }
+
+        .lightbox-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 90vw; 
+            margin: 0 auto;
+        }
+
+        #lightbox-category {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        #lightbox-img {
+            max-width: 90vw; 
+            max-height: 75vh; 
+            min-width: 60vw; 
+            border: 4px solid var(--secondary-color);
+            border-radius: 4px;
+            box-shadow: 0 4px 30px rgba(0,0,0,1);
+            object-fit: cover; 
+        }
+
+        #lightbox-caption {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-top: 15px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: var(--white);
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 2001;
+        }
+
+        .close-lightbox:hover {
+            color: var(--secondary-color);
+        }
+
+        .lightbox-prev, .lightbox-next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(50, 50, 50, 0.8);
+            color: var(--white);
+            border: 2px solid transparent;
+            padding: 15px 20px;
+            font-size: 30px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            z-index: 2001;
+        }
+
+        .lightbox-prev { left: 30px; }
+        .lightbox-next { right: 30px; }
+
+        .lightbox-prev:hover, .lightbox-next:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border-color: var(--white);
+        }
+
+        /* Sponsorship & contact */
+        .sponsorship-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid var(--secondary-color);
+            text-align: center;
+            height: 100%;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .trust-box {
+            background: #E8E8E8;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .contact-box {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .contact-box a.ig-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--secondary-color);
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-box a.ig-link:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Makes the title text Mustard */
+        .contact-box p strong {
+            color: var(--secondary-color); 
+        }
+
+        /* Makes the rest of the contact text Charcoal Grey */
+        .contact-box p {
+             color: var(--primary-color); 
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .logo-wrapper {
+                justify-content: center;
+            }
+            nav ul {
+                justify-content: center;
+            }
+            .hero h2 {
+                font-size: 2rem;
+            }
+            .sub-hero h2 {
+                font-size: 2rem;
+            }
+            .founder-img {
+                float: none;
+                margin: 0 auto 1.5rem auto;
+                display: block;
+            }
+            .card {
+                text-align: center;
+            }
+            .tab-content {
+                padding-top: 160px; 
+            }
+            .lightbox-prev, .lightbox-next {
+                padding: 10px 15px;
+                font-size: 20px;
+                background-color: transparent; 
+            }
+            .lightbox-prev { left: 10px; }
+            .lightbox-next { right: 10px; }
+            #lightbox-img {
+                min-width: 90vw; 
+            }
+            .marquee p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="home-transparent" id="main-header">
+        <div class="nav-container">
+            <div class="logo-wrapper">
+                <img src="logo.png" alt="Vaikai academy logo" class="logo-img">
+                <div class="logo-text">
+                    <h1>Vaikai Academy</h1>
+                    <p>Nursery & Primary School</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a class="nav-link active" data-target="home" onclick="openTab('home')">Home</a></li>
+                    <li><a class="nav-link" data-target="about" onclick="openTab('about')">About</a></li>
+                    <li><a class="nav-link" data-target="leadership" onclick="openTab('leadership')">Leadership</a></li>
+                    <li><a class="nav-link" data-target="curriculum" onclick="openTab('curriculum')">Curriculum</a></li>
+                    <li><a class="nav-link" data-target="snapshots" onclick="openTab('snapshots')">Snapshots</a></li>
+                    <li><a class="nav-link" data-target="sponsorship" onclick="openTab('sponsorship')">Support Us</a></li>
+                    <li><a class="nav-link" data-target="contact" onclick="openTab('contact')">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="home" class="tab-content" style="display: flex;">
+        <section class="hero">
+            <h2>Affordable Education for an Equitable Society</h2>
+            <p style="margin-bottom: 1rem;">Providing quality education for children from rural areas, inspired by the vision of freedom fighter Thyagi NV Kandasamy.</p>
+            
+            <p style="font-size: 1.5rem; font-weight: bold; color: var(--secondary-color); margin-bottom: 2rem;">From LKG to Grade 5</p>
+            
+            <button onclick="openTab('sponsorship')" class="btn">Sponsor a Child</button>
+            
+            <div class="marquee">
+                <div class="marquee-track">
+                    <span class="marquee-text">Now Accepting Admissions for 2026-27</span>
+                    <span class="marquee-text">&bull;</span>
+                    <span class="marquee-text">Now Accepting Admissions for 2026-27</span>
+                    <span class="marquee-text">&bull;</span>
+                    <span class="marquee-text">Now Accepting Admissions for 2026-27</span>
+                    <span class="marquee-text">&bull;</span>
+                    <span class="marquee-text">Now Accepting Admissions for 2026-27</span>
+                    <span class="marquee-text">&bull;</span>
+                    <span class="marquee-text">Now Accepting Admissions for 2026-27</span>
+                    <span class="marquee-text">&bull;</span>
+                    <span class="marquee-text">Now Accepting Admissions for 2026-27</span>
+                    <span class="marquee-text">&bull;</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="about" class="tab-content">
+        <div class="container">
+            
+            <section style="margin-bottom: 4rem;">
+                <h2 class="section-title">Our Heritage</h2>
+                <div class="card">
+                    <img src="founder.jpg" alt="Thyagi NV Kandasamy" class="founder-img">
+                    <h3>Founded by Thyagi NV Kandasamy in 1993</h3>
+                    <p>Vaikai Academy was founded by Thyagi NV Kandasamy, a dedicated Indian independence activist and recipient of the Tamarai Pattayam for his contributions to the nation’s freedom struggle. Driven by a vision to make quality education accessible to rural communities, he sought to uplift society through learning. Today, his granddaughters proudly carry forward his legacy, empowering 120+ students from low-income agricultural and wage-labor families with unwavering commitment.</p>
+                </div>
+            </section>
+
+            <section class="mission-vision">
+                <h3>Our Mission</h3>
+                <p style="margin-bottom: 2rem;">To foster academic excellence, social responsibility and lifelong learning among our students by creating a nurturing and inclusive environment.</p>
+                
+                <h3>Our Vision</h3>
+                <p>To be an educational institution dedicated to equity and community engagement. We aspire to empower every student to reach their full potential and contribute positively to society.</p>
+            </section>
+
+            <section>
+                <h2 class="section-title">Role in the Community</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Educate to Empower</h3>
+                        <p>We are dedicated to providing quality learning for children from rural communities and shaping them into responsible, informed, and active citizens.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Social Equity</h3>
+                        <p>We promote social equity by addressing educational disparities and fostering an inclusive environment.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Supporting Teachers</h3>
+                        <p>We support our teachers by providing continuous professional development opportunities to enhance their skills and effectiveness in the classroom.</p>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+    </div>
+
+    <div id="leadership" class="tab-content">
+        <section class="sub-hero leadership-bg">
+            <h2>Our Leadership</h2>
+            <p>Commited to ensuring mental well-being, holistic excellence, and inclusive growth.</p>
+        </section>
+
+        <div class="container" style="padding-top: 0;">
+            <div class="grid">
+                <div class="card" style="text-align: center;">
+                    <img src="krithik.jpg" alt="Krithik GS" class="profile-img">
+                    <h3>Krithik GS</h3>
+                    <p><strong>Managing Trustee</strong><br>A mental health professional and school psychologist with over a decade of experience, focusing on early intervention, emotional success and empowering staff.</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <img src="barani.jpg" alt="Dr. G. Barani" class="profile-img">
+                    <h3>Dr. G. Barani</h3>
+                    <p><strong>Advisory Board</strong><br>Associate professor at Bharathiar University. Her extensive experience in academia, research and global collaborations provides strategic insight to Vaikai Academy.</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <img src="saratha.jpg" alt="Saratha Rani G." class="profile-img">
+                    <h3>Saratha Rani G.</h3>
+                    <p><strong>Academic Direction</strong><br>An academic lead dedicated to fostering inclusive learning, continuous teacher development and adopting innovative teaching methods.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="curriculum" class="tab-content">
+        <section class="sub-hero curriculum-bg">
+            <h2>Our Holistic Curriculum</h2>
+            <p>At Vaikai Academy, we believe that education extends far beyond the four walls of a classroom. Our curriculum, for Kindergarten through Grade 5, is designed to nurture the intellect, spirit and character of every child.</p>
+        </section>
+        
+        <div class="container" style="padding-top: 0;">
+            <div class="grid">
+                <div class="card">
+                    <h3>Academic Excellence</h3>
+                    <p>Our primary program focuses on building a strong foundation, bridging the gap between early-childhood play and formal logic. We focus on sensory-based learning, phonics and social-emotional development with a transition into literacy, numeracy and environmental sciences.</p>
+                </div>
+                <div class="card">
+                    <h3>Arts & Physical Education</h3>
+                    <p>We place equal weight on what happens outside the textbook. Our "whole child" approach ensures physical, creative and social skills are nurtured simultaneously. We integrate visual and performing arts to build confidence and cultivate teamwork and resilience through fitness education.</p>
+                </div>
+                <div class="card">
+                    <h3>Community & Ethics</h3>
+                    <p>Vaikai Academy is a family. We celebrate milestones and festivals deeply rooted in our values and traditions, teaching students about heritage, and giving back to society. By balancing academics with vibrant extra-curricular life, our students grow into well-rounded, empathetic individuals.</p>
+                </div>
+                <div class="card">
+                    <h3>After School Activities</h3>
+                    <p>Our AFS program provides enriching opportunities that enhance our core academics. Students can explore Bharatanatyam, Karate, Chess and Abacus, with Music to be introduced soon.</p>
+                </div>
+                <div class="card">
+                    <h3>The Seed to Table Program <br> (New in 2026!)</h3>
+                    <p>We are thrilled to introduce our school farm into the curriculum this upcoming year. This hands-on initiative is more than just a garden; it is a laboratory. Students will grow their own crops, learning responsibility, patience with natural cycles and building a deep, first-hand respect for the earth and the source of their food.</p>
+                </div>
+                <div class="card">
+                    <h3>Computer Science <br> (New in 2026!)</h3>
+                    <p>Computer Science is now being introduced for Grades 3–5, in order to enable students to build on their digital skills. This addition seeks to bolster their logical thinking, problem-solving skills, thus preparing them for an increasingly technology-driven world.</p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="snapshots" class="tab-content">
+        <div class="container">
+            <h2 class="section-title">Glimpses of Life at Vaikai Academy</h2>
+            
+            <div class="gallery-category">
+                <h3 class="gallery-title">Clubs</h3>
+                <div class="slider-container">
+                    <div class="slide"><img src="math club.jpg" alt="Math Club" data-category="Clubs"></div>
+                    <div class="slide"><img src="science club.jpg" alt="Science Club" data-category="Clubs"></div>
+                    <div class="slide"><img src="tamil club.jpg" alt="Tamil Club" data-category="Clubs"></div>
+                    <div class="slide"><img src="english club.jpg" alt="English Club" data-category="Clubs"></div>
+                    <div class="slide"><img src="cb1.jpg" alt="Karakattam" data-category="Clubs"></div>
+                    <div class="slide"><img src="cb2.jpg" alt="Mime Show" data-category="Clubs"></div>
+                    <div class="slide"><img src="cb3.jpg" alt="Puppet Show" data-category="Clubs"></div>
+                    <div class="slide"><img src="cb4.jpg" alt="Club Display" data-category="Clubs"></div>
+                    <div class="slide"><img src="cb5.jpg" alt="Club Display" data-category="Clubs"></div>
+                </div>
+            </div>
+
+            <div class="gallery-category">
+                <h3 class="gallery-title">Celebrations</h3>
+                <div class="slider-container">
+                    <div class="slide"><img src="founder's day.jpg" alt="Remembering our founder NV Kandasamy" data-category="Celebrations"></div>
+                    <div class="slide"><img src="independence day.jpg" alt="Independence Day" data-category="Celebrations"></div>
+                    <div class="slide"><img src="children's day.jpg" alt="Teacher's performing for the kids on Children's Day" data-category="Celebrations"></div>
+                    <div class="slide"><img src="teacher's day.jpg" alt="Making cards for Teacher's Day" data-category="Celebrations"></div>
+                    <div class="slide"><img src="muzhaipari.jpg" alt="Muzhaipari Thiruvizha celebrating Agriculture" data-category="Celebrations"></div>
+                    <div class="slide"><img src="pongal.jpg" alt="Pongal Thirunaal" data-category="Celebrations"></div>
+                    <div class="slide"><img src="miladi nabi.jpg" alt="Miladi Nabi Prayers" data-category="Celebrations"></div>
+                    <div class="slide"><img src="ganesh chathurthi.jpg" alt="Vinayagar Chathurthi" data-category="Celebrations"></div>
+                    <div class="slide"><img src="krishna jeyanti.jpg" alt="Our little Krishnas and Radhas" data-category="Celebrations"></div>
+                    <div class="slide"><img src="diwali.jpg" alt="Fire Safety lessons for Diwali" data-category="Celebrations"></div>
+                    <div class="slide"><img src="christmas.jpg" alt="Christmas Cheer" data-category="Celebrations"></div>
+                    <div class="slide"><img src="environment day.jpg" alt="Environment Day Pledge" data-category="Celebrations"></div>
+                    <div class="slide"><img src="food festival.jpg" alt="The Vaikai Academy Food Festival" data-category="Celebrations"></div>
+                </div>
+            </div>
+
+            <div class="gallery-category">
+                <h3 class="gallery-title">Competitions</h3>
+                <div class="slider-container">
+                    <div class="slide"><img src="houses.jpg" alt="The 4 Houses: Courage, Honour, Integrity and Wisdom" data-category="Competitions"></div>
+                    <div class="slide"><img src="card making.jpg" alt="Card Making" data-category="Competitions"></div>
+                    <div class="slide"><img src="drawing.jpg" alt="Drawing" data-category="Competitions"></div>
+                    <div class="slide"><img src="fancy dress.jpg" alt="Fancy Dress" data-category="Competitions"></div>
+                    <div class="slide"><img src="thirukkural.jpg" alt="Thirukkural" data-category="Competitions"></div>
+                    <div class="slide"><img src="karate.jpg" alt="Karate Display" data-category="Competitions"></div>
+                </div>
+            </div>
+
+            <div class="gallery-category">
+                <h3 class="gallery-title">Camps</h3>
+                <div class="slider-container">
+                    <div class="slide"><img src="eye camp.jpg" alt="Eye Camp" data-category="Camps"></div>
+                    <div class="slide"><img src="health camp.jpg" alt="Health Camp" data-category="Camps"></div>
+                    <div class="slide"><img src="seed ball making.jpg" alt="Seed Ball Making" data-category="Camps"></div>
+                    <div class="slide"><img src="waste management.jpg" alt="Awareness session on Waste Segregation" data-category="Camps"></div>
+                </div>
+            </div>
+
+            <div class="gallery-category">
+                <h3 class="gallery-title">Parents</h3>
+                <div class="slider-container">
+                    <div class="slide"><img src="p-chrysalis.jpg" alt="Parents at Vaikai Academy" data-category="Parents"></div>
+                    <div class="slide"><img src="p-chrysalis3.jpg" alt="Orientation Program for Parents" data-category="Parents"></div>
+                    <div class="slide"><img src="p-club.jpg" alt="Parents at the Club Display" data-category="Parents"></div>
+                    <div class="slide"><img src="p-club2.jpg" alt="Parents at the Club Display" data-category="Parents"></div>
+                    <div class="slide"><img src="p-club3.jpg" alt="Parents at the Club Display" data-category="Parents"></div>
+                    <div class="slide"><img src="p-festival.jpg" alt="Parents at the Food Festival" data-category="Parents"></div>
+                    <div class="slide"><img src="p-food.jpg" alt="Parents at the Food Festival" data-category="Parents"></div>
+                    <div class="slide"><img src="p-pongal.jpg" alt="Pongal Thirunaal with the Parents" data-category="Parents"></div>
+                    <div class="slide"><img src="p-pongal2.jpg" alt="Pongal Thirunaal with the Parents" data-category="Parents"></div>
+                    <div class="slide"><img src="p-pongal3.jpg" alt="Pongal Thirunaal with the Parents" data-category="Parents"></div>
+                    <div class="slide"><img src="p-pongal4.jpg" alt="Pongal Thirunaal with the Parents" data-category="Parents"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="sponsorship" class="tab-content">
+        <div class="container">
+            <h2 class="section-title">Sponsorship Appeal</h2>
+            
+            <section style="margin-bottom: 4rem;">
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem; text-align: center;">The Funding Gap</h3>
+                <div class="card" style="border-top: none;">
+                    <p style="margin-bottom: 15px;">While we remain dedicated to quality education, resource limitations make it difficult to fully support every aspect of our school’s operations. We serve children from rural, low-income families, many of whom depend on irregular incomes from daily wage labor, farming and masonry. While we strive to keep education affordable, our current fee structure leaves us with a critical funding gap.</p>
+                    <p style="margin-bottom: 15px;">This directly impacts our ability to hire enough teachers, maintain facilities and provide a safe, clean and supportive environment for our students—especially younger children who require additional care and supervision.</p>
+                    <p>With your support, we can bridge this gap. By sponsoring a child or contributing to our school, you help us provide quality education, better facilities and a nurturing environment for every student. Together, we can empower these children to build a brighter future.</p>
+                </div>
+            </section>
+
+            <h3 style="color: var(--primary-color); margin-bottom: 2rem; text-align: center;">50/50 Sponsorship Model</h3>
+            <div class="grid" style="margin-bottom: 4rem;">
+                <div class="sponsorship-card">
+                    <h3>Platinum Sponsor</h3>
+                    <div class="price">₹1,22,500</div>
+                    <p>Covers 50% of a child's school fee from LKG to Class 5. The contribution can also be paid in 2 installments.</p>
+                </div>
+                <div class="sponsorship-card">
+                    <h3>Gold Sponsor</h3>
+                    <div class="price">₹17,500 / annum</div>
+                    <p>Covers 50% of a child's school fee for a full year. Parents remain invested by paying the other half.</p>
+                </div>
+                <div class="sponsorship-card">
+                    <h3>Silver Sponsor</h3>
+                    <div class="price">₹1,750 / month</div>
+                    <p>Monthly sponsorship for 10 months to support a child's education for an entire academic year.</p>
+                </div>
+            </div>
+
+            <h3 style="color: var(--primary-color); margin-bottom: 2rem; text-align: center;">Additional Support Models</h3>
+            <div class="grid">
+                <div class="sponsorship-card">
+                    <h3>Targeted Support</h3>
+                    <div class="price">₹25,000+</div>
+                    <p>Direct support for specific school needs, including infrastructure improvements, school vehicles, teaching aids and extracurriculars.</p>
+                </div>
+                <div class="sponsorship-card">
+                    <h3>General Contribution</h3>
+                    <div class="price">Any Contribution</div>
+                    <p>Every bit helps bridge the funding gap! Make a one-time general contribution of an amount of your choice.</p>
+                </div>
+            </div>
+
+            <div class="trust-box">
+                <h3 style="color: var(--primary-color); margin-bottom: 10px;">Make a Contribution</h3>
+                <p><strong>Account Name:</strong> Thyagi NV Kandasamy foundation</p>
+                <p><strong>Account Number:</strong> 746001010050148</p>
+                <p><strong>IFSC code:</strong> UBIN0574601</p>
+                <p><strong>Branch:</strong> Kokkarayanpettai</p>
+                <br>
+                <p><em>*Contributions are tax-exempt under Section 80G (Provisional approval no.: AADTT8766DF20206).</em></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="tab-content">
+        <section class="sub-hero contact-bg">
+            <h2>Get in Touch</h2>
+            <p>We would love to hear from you. Reach out to schedule a visit or ask about our programs.</p>
+        </section>
+
+        <div class="container" style="padding-top: 0;">
+            <div class="contact-box">
+                <p><strong>Location:</strong> 3/310 Kokkarayanpettai, Pappampalayam, Namakkal - 638007, Tamil Nadu</p>
+                <br>
+                <p><strong>Email:</strong> vaikaiacademy.edu@gmail.com</p>
+                
+                <p style="margin-top: 20px;">To learn more about our school activities, visit our Instagram:</p>
+                <a href="https://www.instagram.com/vaikai_academy/?hl=en" target="_blank" class="ig-link">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    @vaikai_academy
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <button class="lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</button>
+        
+        <div class="lightbox-content-wrapper">
+            <div id="lightbox-category"></div>
+            <img id="lightbox-img" src="" alt="">
+            <div id="lightbox-caption"></div>
+        </div>
+        
+        <button class="lightbox-next" onclick="changeLightboxImage(1)">&#10095;</button>
+    </div>
+
+    <script>
+        // Tab navigation logic
+        function openTab(tabName) {
+            let tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = "none";
+            }
+
+            let navLinks = document.getElementsByClassName("nav-link");
+            for (let i = 0; i < navLinks.length; i++) {
+                navLinks[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).style.display = "flex";
+
+            let activeLink = document.querySelector(`nav a[data-target="${tabName}"]`);
+            if (activeLink) {
+                activeLink.classList.add("active");
+            }
+
+            let header = document.getElementById("main-header");
+            if (["home", "curriculum", "leadership", "contact"].includes(tabName)) {
+                header.classList.add("home-transparent");
+            } else {
+                header.classList.remove("home-transparent");
+            }
+        }
+
+        // Lightbox logic
+        let currentImageIndex = 0;
+        let galleryImages = [];
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const images = document.querySelectorAll('.slide img');
+            galleryImages = Array.from(images);
+
+            images.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    openLightbox(index);
+                });
+            });
+        });
+
+        function toSentenceCase(text) {
+            if (!text) return "";
+            return text.charAt(0).toUpperCase() + text.slice(1);
+        }
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            const lightboxCategory = document.getElementById('lightbox-category');
+
+            lightbox.style.display = 'flex';
+            lightboxImg.src = galleryImages[index].src;
+            
+            lightboxCategory.textContent = galleryImages[index].getAttribute("data-category");
+            lightboxCaption.textContent = toSentenceCase(galleryImages[index].alt);
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        function changeLightboxImage(direction) {
+            currentImageIndex += direction;
+            
+            if (currentImageIndex < 0) {
+                currentImageIndex = galleryImages.length - 1;
+            } else if (currentImageIndex >= galleryImages.length) {
+                currentImageIndex = 0;
+            }
+            
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            const lightboxCategory = document.getElementById('lightbox-category');
+            
+            lightboxImg.src = galleryImages[currentImageIndex].src;
+            lightboxCategory.textContent = galleryImages[currentImageIndex].getAttribute("data-category");
+            lightboxCaption.textContent = toSentenceCase(galleryImages[currentImageIndex].alt);
+        }
+
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+    </script>
+
+</body>
+</html>
