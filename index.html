@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vaikai Academy | Nursery & Primary School</title>
+    <title>Vaikai academy | Nursery & primary school</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,6 +67,11 @@
         header.home-transparent nav a:hover,
         header.home-transparent nav a.active {
             color: var(--secondary-color);
+        }
+        
+        /* NEW: Hides the header by pushing it up off the screen */
+        header.header-hidden {
+            transform: translateY(-100%);
         }
 
         .nav-container {
@@ -783,10 +788,10 @@
             <div class="gallery-category">
                 <h3 class="gallery-title">Celebrations</h3>
                 <div class="slider-container">
-                    <div class="slide"><img src="founder's day.jpg" alt="Remembering our founder NV Kandasamy" data-category="Celebrations"></div>
+                    <div class="slide"><img src="founder_s day.jpg" alt="Remembering our founder NV Kandasamy" data-category="Celebrations"></div>
                     <div class="slide"><img src="independence day.jpg" alt="Independence Day" data-category="Celebrations"></div>
-                    <div class="slide"><img src="children's day.jpg" alt="Teacher's performing for the kids on Children's Day" data-category="Celebrations"></div>
-                    <div class="slide"><img src="teacher's day.jpg" alt="Making cards for Teacher's Day" data-category="Celebrations"></div>
+                    <div class="slide"><img src="children_s day.jpg" alt="Teacher's performing for the kids on Children's Day" data-category="Celebrations"></div>
+                    <div class="slide"><img src="teacher_s day.jpg" alt="Making cards for Teacher's Day" data-category="Celebrations"></div>
                     <div class="slide"><img src="muzhaipari.jpg" alt="Muzhaipari Thiruvizha celebrating Agriculture" data-category="Celebrations"></div>
                     <div class="slide"><img src="pongal.jpg" alt="Pongal Thirunaal" data-category="Celebrations"></div>
                     <div class="slide"><img src="miladi nabi.jpg" alt="Miladi Nabi Prayers" data-category="Celebrations"></div>
@@ -1026,6 +1031,31 @@
                 closeLightbox();
             }
         });
+        
+        // --- SMART HEADER LOGIC (Hide on scroll down) ---
+        let lastScrollTop = 0;
+        let delta = 15; // This is the "tolerance" zone. It ignores tiny bounces!
+
+        window.addEventListener("scroll", function() {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            let header = document.getElementById("main-header");
+            
+            // If the distance scrolled is less than 15 pixels, do nothing.
+            if (Math.abs(lastScrollTop - currentScroll) <= delta) {
+                return; 
+            }
+            
+            // If they scroll down and are past the top of the page, hide it
+            if (currentScroll > lastScrollTop && currentScroll > 80) {
+                header.classList.add("header-hidden");
+            } else {
+                // If they truly scroll up, bring it back
+                header.classList.remove("header-hidden");
+            }
+            
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; 
+        }, false);
+        
     </script>
 
 </body>
