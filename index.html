@@ -38,40 +38,18 @@
             overflow-x: hidden; 
         }
 
-        /* Header & navigation */
+        /* --- FIXED HEADER (Solid Opaque White Background) --- */
         header {
-            background-color: var(--white);
+            background-color: var(--white) !important;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: fixed; 
             top: 0;
             width: 100%;
             z-index: 1000;
             border-bottom: 4px solid var(--secondary-color);
-            transition: all 0.3s ease; 
-        }
-
-        header.home-transparent {
-            background-color: transparent;
-            box-shadow: none;
-            border-bottom: none;
-        }
-
-        header.home-transparent .logo-text h1,
-        header.home-transparent nav a {
-            color: var(--white);
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
-        }
-
-        header.home-transparent .logo-text p {
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
-        }
-
-        header.home-transparent nav a:hover,
-        header.home-transparent nav a.active {
-            color: var(--secondary-color);
+            transition: transform 0.3s ease; 
         }
         
-        /* NEW: Hides the header by pushing it up off the screen */
         header.header-hidden {
             transform: translateY(-100%);
         }
@@ -83,12 +61,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1.5rem;
         }
 
         .logo-wrapper {
             display: flex;
             align-items: center;
             gap: 15px; 
+            flex-shrink: 0;
         }
 
         .logo-img {
@@ -98,59 +78,194 @@
         }
 
         .logo-text h1 {
-            color: var(--primary-color);
+            color: var(--primary-color) !important;
             font-size: 1.8rem;
             margin-bottom: 2px;
             line-height: 1.1;
-            transition: color 0.3s ease;
+            text-shadow: none !important;
         }
 
         .logo-text p {
-            color: var(--secondary-color);
+            color: var(--secondary-color) !important;
             font-size: 0.9rem;
             font-weight: bold;
             letter-spacing: 1px;
+            text-shadow: none !important;
+        }
+
+        nav {
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
         }
 
         nav ul {
             list-style: none;
             display: flex;
             gap: 2rem;
-            flex-wrap: wrap;
+            padding: 10px 0;
         }
 
         nav a {
             text-decoration: none;
-            color: var(--text-color);
+            color: var(--text-color) !important;
             font-weight: 600;
             transition: color 0.3s ease;
             cursor: pointer;
             padding-bottom: 5px;
+            display: inline-block;
+            text-shadow: none !important;
         }
 
-        nav a:hover {
-            color: var(--secondary-color);
+        nav a:hover, nav a.active {
+            color: var(--secondary-color) !important;
         }
 
         nav a.active {
-            color: var(--secondary-color);
             border-bottom: 3px solid var(--secondary-color);
         }
 
-        /* Tab content control */
+        /* --- RESPONSIVE BREAKPOINT SYSTEM --- */
+        @media (max-width: 1140px) {
+            .nav-container {
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                padding: 0.75rem 0; 
+            }
+
+            .logo-wrapper {
+                width: 100%;
+                display: flex !important;
+                justify-content: center !important;
+                text-align: center !important;
+                margin-bottom: 0.5rem;
+                padding: 0 1rem;
+            }
+
+            /* --- FIX: Dynamically centers the navigation line container frame --- */
+            nav {
+                width: auto;
+                max-width: 100%;
+                margin: 0 auto;
+                position: relative;
+                display: block;
+                padding: 0 35px; 
+            }
+
+            /* --- FIX: Automatically switches layout alignment behaviors dynamically --- */
+            nav ul {
+                width: 100%;
+                display: flex;
+                /* If the tabs fit within the line space, center them natively. 
+                   If they overflow, align them seamlessly to pull left for scrolling. */
+                justify-content: center !important; 
+                overflow-x: auto;
+                white-space: nowrap; 
+                scrollbar-width: none; 
+                padding: 10px 0;
+                -webkit-overflow-scrolling: touch;
+                
+                -webkit-mask-image: var(--nav-mask, linear-gradient(to right, transparent, #000 15%, #000 85%, transparent));
+                mask-image: var(--nav-mask, linear-gradient(to right, transparent, #000 15%, #000 85%, transparent));
+            }
+
+            /* Handles fallback safety alignment for older WebKit viewports */
+            @supports (overflow-x: auto) {
+                nav ul {
+                    justify-content: flex-start !important;
+                }
+                /* Ensures centering on wide tablets/mid-sized viewports where no overflow is present */
+                @media (min-width: 700px) {
+                    nav ul {
+                        justify-content: center !important;
+                    }
+                }
+            }
+
+            nav ul::-webkit-scrollbar {
+                display: none; 
+            }
+
+            /* --- SWIPE INDICATORS --- */
+            nav::before, nav::after {
+                content: "‹";
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 2rem;
+                font-weight: bold;
+                color: var(--secondary-color);
+                z-index: 10;
+                pointer-events: none;
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                opacity: 0.8;
+            }
+
+            /* --- SWIPE INDICATORS --- */
+            nav::before, nav::after {
+                content: "‹";
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 2rem;
+                font-weight: bold;
+                color: var(--secondary-color);
+                z-index: 10;
+                pointer-events: none;
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                opacity: 0.8;
+            }
+
+            nav::before {
+                content: "‹";
+                left: 12px;
+                animation: pulseLeft 1.8s infinite ease-in-out;
+            }
+
+            nav::after {
+                content: "›";
+                right: 12px;
+                animation: pulseRight 1.8s infinite ease-in-out;
+            }
+
+            header:not(.left-scrollable) nav::before { 
+                opacity: 0; 
+                transform: translateY(-50%) translateX(-5px);
+            }
+            header:not(.right-scrollable) nav::after { 
+                opacity: 0; 
+                transform: translateY(-50%) translateX(5px);
+            }
+
+            @keyframes pulseLeft {
+                0%, 100% { transform: translateY(-50%) translateX(0); }
+                50% { transform: translateY(-50%) translateX(-4px); }
+            }
+            @keyframes pulseRight {
+                0%, 100% { transform: translateY(-50%) translateX(0); }
+                50% { transform: translateY(-50%) translateX(4px); }
+            }
+        }
+
+        /* --- CONTENT TAB PROTECTION STRUCTURE --- */
         .tab-content {
             display: none; 
             animation: fadeIn 0.4s ease-in-out;
-            flex: 1; 
+            width: 100%;
             flex-direction: column; 
-            padding-top: 100px; 
+            padding-top: 110px; 
         }
 
-        #home.tab-content, 
-        #curriculum.tab-content, 
-        #leadership.tab-content, 
-        #contact.tab-content {
-            padding-top: 0; 
+        #home.tab-content {
+            display: flex;
+            padding-top: 110px; 
+        }
+
+        @media (max-width: 1140px) {
+            .tab-content {
+                padding-top: 175px !important; 
+            }
         }
 
         @keyframes fadeIn {
@@ -164,14 +279,19 @@
             color: var(--white);
             text-align: center;
             padding: 2rem;
-            padding-top: 100px; 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 100%;
-            min-height: 100vh; 
+            min-height: calc(100vh - 110px); 
             position: relative; 
+        }
+
+        @media (max-width: 1140px) {
+            .hero {
+                min-height: calc(100vh - 175px);
+            }
         }
 
         .hero h2 {
@@ -192,14 +312,13 @@
         .sub-hero {
             color: var(--white);
             text-align: center;
-            padding: 2rem;
-            padding-top: 100px; 
+            padding: 4rem 2rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 100%;
-            min-height: 60vh; 
+            min-height: 40vh; 
             margin-bottom: 3rem;
         }
 
@@ -415,6 +534,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            aspect-ratio: 15 / 11;
         }
 
         /* Lightbox CSS */
@@ -507,7 +627,7 @@
             border-color: var(--white);
         }
 
-        /* Sponsorship & contact */
+        /* Sponsorship & contact styles */
         .sponsorship-card {
             background: var(--white);
             padding: 2rem;
@@ -556,27 +676,15 @@
             color: var(--secondary-color);
         }
         
-        /* Makes the title text Mustard */
         .contact-box p strong {
             color: var(--secondary-color); 
         }
 
-        /* Makes the rest of the contact text Charcoal Grey */
         .contact-box p {
              color: var(--primary-color); 
         }
 
         @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            .logo-wrapper {
-                justify-content: center;
-            }
-            nav ul {
-                justify-content: center;
-            }
             .hero h2 {
                 font-size: 2rem;
             }
@@ -590,9 +698,6 @@
             }
             .card {
                 text-align: center;
-            }
-            .tab-content {
-                padding-top: 160px; 
             }
             .lightbox-prev, .lightbox-next {
                 padding: 10px 15px;
@@ -612,7 +717,7 @@
 </head>
 <body>
 
-    <header class="home-transparent" id="main-header">
+    <header id="main-header">
         <div class="nav-container">
             <div class="logo-wrapper">
                 <img src="logo.png" alt="Vaikai academy logo" class="logo-img">
@@ -622,7 +727,7 @@
                 </div>
             </div>
             <nav>
-                <ul>
+                <ul id="nav-list">
                     <li><a class="nav-link active" data-target="home" onclick="openTab('home')">Home</a></li>
                     <li><a class="nav-link" data-target="about" onclick="openTab('about')">About</a></li>
                     <li><a class="nav-link" data-target="leadership" onclick="openTab('leadership')">Leadership</a></li>
@@ -635,7 +740,7 @@
         </div>
     </header>
 
-    <div id="home" class="tab-content" style="display: flex;">
+    <div id="home" class="tab-content">
         <section class="hero">
             <h2>Affordable Education for an Equitable Society</h2>
             <p style="margin-bottom: 1rem;">Providing quality education for children from rural areas, inspired by the vision of freedom fighter Thyagi NV Kandasamy.</p>
@@ -945,6 +1050,65 @@
     </div>
 
     <script>
+        // --- DYNAMIC TARGET SCROLL TRACK MASK & INDICATOR LOGIC ---
+        function updateNavMaskWithActiveProtection() {
+            const navUl = document.getElementById('nav-list');
+            const activeLink = document.querySelector('.nav-link.active');
+            const headerEl = document.getElementById('main-header');
+            
+            if (!navUl) return;
+            
+            if (window.innerWidth > 1140) {
+                navUl.style.removeProperty('--nav-mask');
+                if (headerEl) {
+                    headerEl.classList.remove('left-scrollable', 'right-scrollable');
+                }
+                return;
+            }
+
+            const isLeftScrollable = navUl.scrollLeft > 5;
+            const isRightScrollable = navUl.scrollLeft < (navUl.scrollWidth - navUl.clientWidth - 5);
+
+            if (headerEl) {
+                headerEl.classList.toggle('left-scrollable', isLeftScrollable);
+                headerEl.classList.toggle('right-scrollable', isRightScrollable);
+            }
+
+            if (!activeLink) {
+                let defaultMask = 'linear-gradient(to right, transparent, #000 15%, #000 85%, transparent)';
+                navUl.style.setProperty('--nav-mask', defaultMask);
+                return;
+            }
+
+            const containerRect = navUl.getBoundingClientRect();
+            const activeRect = activeLink.getBoundingClientRect();
+
+            const leftOffsetPercent = ((activeRect.left - containerRect.left) / containerRect.width) * 100;
+            const rightOffsetPercent = ((activeRect.right - containerRect.left) / containerRect.width) * 100;
+
+            const startProtect = Math.max(0, leftOffsetPercent);
+            const endProtect = Math.min(100, rightOffsetPercent);
+
+            // OPTIMIZATION logic: Remove edge transparent fades entirely when at explicit limits
+            let leftFadeColor = isLeftScrollable ? 'transparent' : '#000';
+            let leftFadeBound = isLeftScrollable ? '15%' : '0%';
+            
+            let rightFadeColor = isRightScrollable ? 'transparent' : '#000';
+            let rightFadeBound = isRightScrollable ? '85%' : '100%';
+
+            let customMask = `linear-gradient(to right, 
+                ${leftFadeColor}, 
+                #000 ${leftFadeBound}, 
+                #000 ${Math.min(parseInt(leftFadeBound), startProtect)}%, 
+                #000 ${startProtect}%, 
+                #000 ${endProtect}%, 
+                #000 ${Math.max(parseInt(rightFadeBound), endProtect)}%, 
+                #000 ${rightFadeBound}, 
+                ${rightFadeColor})`;
+
+            navUl.style.setProperty('--nav-mask', customMask);
+        }
+
         // Tab navigation logic
         function openTab(tabName) {
             let tabContents = document.getElementsByClassName("tab-content");
@@ -962,15 +1126,18 @@
             let activeLink = document.querySelector(`nav a[data-target="${tabName}"]`);
             if (activeLink) {
                 activeLink.classList.add("active");
+                activeLink.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'center' });
             }
-
-            let header = document.getElementById("main-header");
-            if (["home", "curriculum", "leadership", "contact"].includes(tabName)) {
-                header.classList.add("home-transparent");
-            } else {
-                header.classList.remove("home-transparent");
-            }
+            
+            setTimeout(updateNavMaskWithActiveProtection, 100);
         }
+
+        document.getElementById('nav-list').addEventListener('scroll', updateNavMaskWithActiveProtection);
+        window.addEventListener('resize', updateNavMaskWithActiveProtection);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavMaskWithActiveProtection();
+            setTimeout(updateNavMaskWithActiveProtection, 300);
+        });
 
         // Lightbox logic
         let currentImageIndex = 0;
@@ -1033,31 +1200,33 @@
                 closeLightbox();
             }
         });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                closeLightbox();
+            }
+        });
         
-        // --- SMART HEADER LOGIC (Hide on scroll down) ---
+        // Smart Header logic (Hide on scroll down)
         let lastScrollTop = 0;
-        let delta = 15; // This is the "tolerance" zone. It ignores tiny bounces!
+        let delta = 15; 
 
         window.addEventListener("scroll", function() {
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
             let header = document.getElementById("main-header");
             
-            // If the distance scrolled is less than 15 pixels, do nothing.
             if (Math.abs(lastScrollTop - currentScroll) <= delta) {
                 return; 
             }
             
-            // If they scroll down and are past the top of the page, hide it
             if (currentScroll > lastScrollTop && currentScroll > 80) {
                 header.classList.add("header-hidden");
             } else {
-                // If they truly scroll up, bring it back
                 header.classList.remove("header-hidden");
             }
             
             lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; 
         }, false);
-        
     </script>
 
 </body>
